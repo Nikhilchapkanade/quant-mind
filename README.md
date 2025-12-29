@@ -27,8 +27,21 @@ Before you begin, ensure you have the following installed:
 * A curiosity to see AI do math!
 
 ## 4. Installation
+mcp
+langchain
+langchain-community
+langchain-huggingface
+langchain-text-splitters
+langchain-core
+chromadb
+tensorflow
+numpy
+pandas
+yfinance
+scikit-learn
+tf-keras
+sentence-transformers
 
-**1. Clone the repository**
 git clone [https://github.com/Nikhilchapkanade/quant-mind.git](https://github.com/Nikhilchapkanade/quant-mind.git)
 
 
