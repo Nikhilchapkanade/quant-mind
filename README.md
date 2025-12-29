@@ -30,18 +30,15 @@ Before you begin, ensure you have the following installed:
 
 **1. Clone the repository**
 git clone  [https://github.com/Nikhilchapkanade/quant-mind.git](https://github.com/Nikhilchapkanade/quant-mind.git)
-cd quant-mind
+
 2. Set up the environment (Windows)
 Bash
-
 python -m venv venv
 venv\Scripts\activate
 (If you are on Mac/Linux, use source venv/bin/activate instead)
 
 3. Install Requirements
-
 Bash
-
 pip install -r requirements.txt
 Note: This might take a minute because it is installing TensorFlow and other heavy AI libraries.
 
@@ -51,7 +48,6 @@ To let Claude talk to this code, you need to add it to the config file.
 Open your Claude config file. On Windows, it is located at: %APPDATA%\Claude\claude_desktop_config.json
 
 Add this entry to the file:
-
 JSON
 
 {
@@ -59,8 +55,8 @@ JSON
     "quant-mind": {
       "command": "C:\\Users\\YOUR_USERNAME\\quant-mind\\venv\\Scripts\\python.exe",
       "args": [
-        "C:\\Users\\YOUR_USERNAME\\quant-mind\\server.py"
-      ]
+          "C:\\Users\\YOUR_USERNAME\\quant-mind\\server.py"
+         ]
     }
   }
 }
