@@ -53,17 +53,18 @@ JSON
 {
   "mcpServers": {
     "quant-mind": {
-      "command": "C:\\Users\\YOUR_USERNAME\\quant-mind\\venv\\Scripts\\python.exe",
+      "command": "C:\\Users\\nikhi\\quant-mind\\venv\\Scripts\\python.exe",
       "args": [
-          "C:\\Users\\YOUR_USERNAME\\quant-mind\\server.py"
+          "C:\\Users\\nikhi\\quant-mind\\server.py"
          ]
     }
   }
 }
-(Make sure to replace YOUR_USERNAME with your actual PC username so the path is correct!)
+
 
 5. Usage (Making Predictions)
-Once the server is configured, simply open the Claude Desktop App. You don't need to run any extra commands; Claude starts the server automatically.
+Once the server is configured, simply open the Claude Desktop App. You don't need to run any extra commands;
+Claude starts the server automatically.
 
 Example Prompt:
 
