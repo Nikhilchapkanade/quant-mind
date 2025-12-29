@@ -32,17 +32,25 @@ Before you begin, ensure you have the following installed:
 git clone  [https://github.com/Nikhilchapkanade/quant-mind.git](https://github.com/Nikhilchapkanade/quant-mind.git)
 
 2. Set up the environment (Windows)
+
 Bash
+
 python -m venv venv
+
 venv\Scripts\activate
+
 (If you are on Mac/Linux, use source venv/bin/activate instead)
 
 3. Install Requirements
+
 Bash
+
 pip install -r requirements.txt
+
 Note: This might take a minute because it is installing TensorFlow and other heavy AI libraries.
 
 4. Connecting to Claude
+
 To let Claude talk to this code, you need to add it to the config file.
 
 Open your Claude config file. On Windows, it is located at: %APPDATA%\Claude\claude_desktop_config.json
@@ -63,7 +71,9 @@ JSON
 
 
 5. Usage (Making Predictions)
+
 Once the server is configured, simply open the Claude Desktop App. You don't need to run any extra commands;
+
 Claude starts the server automatically.
 
 Example Prompt:
