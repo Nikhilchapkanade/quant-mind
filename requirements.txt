@@ -1,0 +1,14 @@
+mcp
+langchain
+langchain-community
+langchain-huggingface
+langchain-text-splitters
+langchain-core
+chromadb
+tensorflow
+numpy
+pandas
+yfinance
+scikit-learn
+tf-keras
+sentence-transformers
