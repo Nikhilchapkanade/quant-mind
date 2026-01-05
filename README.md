@@ -71,7 +71,6 @@ JSON
   }
 }
 
-
 6. Usage (Making Predictions)
 Once the server is configured, simply open the Claude Desktop App. You don't need to run any extra commands; Claude starts the server automatically.
 
