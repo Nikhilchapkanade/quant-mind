@@ -50,16 +50,15 @@ git clone [https://github.com/Nikhilchapkanade/quant-mind.git](https://github.co
    python -m venv venv
    venv\Scripts\activate
 
-5. Connecting to Claude
+### 5. Connecting to Claude
 
 To let Claude talk to this code, you need to add it to the config file.
 
-Open your Claude config file. On Windows, it is located at: %APPDATA%\Claude\claude_desktop_config.json
+Open your Claude config file. On Windows, it is located at: `%APPDATA%\Claude\claude_desktop_config.json`
 
 Add this entry to the file:
 
-JSON
-
+```json
 {
   "mcpServers": {
     "quant-mind": {
@@ -69,7 +68,6 @@ JSON
       ]
     }
   }
-}
 
 6. Usage (Making Predictions)
 Once the server is configured, simply open the Claude Desktop App. You don't need to run any extra commands; Claude starts the server automatically.
