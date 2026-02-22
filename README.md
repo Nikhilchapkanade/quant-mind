@@ -1,87 +1,129 @@
-# QuantMind AI
+<p align="center">
+  <h1 align="center">📈 QuantMind AI</h1>
+  <p align="center"><strong>Financial agent that predicts stocks with deep learning, running straight inside Claude</strong></p>
+  <p align="center"><em>LSTM neural network for price prediction + RAG for analyst sentiment — all via MCP.</em></p>
+</p>
 
-This repository contains the code for a local AI agent that combines **Deep Learning** (for numbers) and **RAG** (for text) to analyze stocks. It runs on your computer and connects to the Claude Desktop App.
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white"/>
+  <img src="https://img.shields.io/badge/MCP-Server-7C3AED?style=flat-square"/>
+  <img src="https://img.shields.io/badge/TensorFlow-LSTM-FF6F00?style=flat-square&logo=tensorflow&logoColor=white"/>
+  <img src="https://img.shields.io/badge/ChromaDB-RAG-FF6B6B?style=flat-square"/>
+  <img src="https://img.shields.io/badge/Claude-Desktop-000000?style=flat-square&logo=anthropic&logoColor=white"/>
+</p>
 
-## Table of Contents
-1. Project Description
-2. How It Works
-3. Prerequisites
-4. Installation
-5. Connecting to Claude
-6. Usage (Making Predictions)
+---
 
-## 1. Project Description
-This project aims to build a "Financial Analyst" that lives on your laptop. Most AI just reads text, but QuantMind actually does math. It uses a **Long Short-Term Memory (LSTM)** neural network to predict if a stock price will go up or down based on its history. At the same time, it uses **RAG (Retrieval Augmented Generation)** to read analyst notes and explain the *why* behind the move.
+## 🧠 What Is This?
 
-The goal is to show how Agentic AI can use tools to do complex jobs that a normal chatbot can't do.
+Most AI just reads text. QuantMind actually **does math**. It's a financial analyst that lives on your laptop, exposing two MCP tools to Claude:
 
-## 2. How It Works
-The system has two main parts:
-* **The Quantitative Brain (`brain_dl.py`):** Fetches live data from Yahoo Finance and trains a TensorFlow model in real-time to predict the next day's closing price.
-* **The Qualitative Brain (`brain_rag.py`):** specific financial reports to find context (like "delayed product launch") using Vector Search.
+| Tool | Brain | What It Does |
+|------|-------|-------------|
+| `predict_stock_trend` | 🔢 **Quantitative** (LSTM) | Fetches live data from Yahoo Finance, trains a neural network in real-time, predicts next-day price |
+| `consult_analyst_notes` | 📝 **Qualitative** (RAG) | Searches analyst reports via vector similarity to explain *why* the stock is moving |
 
-## 3. Prerequisites
-Before you begin, ensure you have the following installed:
-* Python 3.10 or higher
-* Claude Desktop App (installed and logged in)
-* A curiosity to see AI do math!
+---
 
-## 4. Installation
-mcp
-langchain
-langchain-community
-langchain-huggingface
-langchain-text-splitters
-langchain-core
-chromadb
-tensorflow
-numpy
-pandas
-yfinance
-scikit-learn
-tf-keras
-sentence-transformers
+## ⚡ Architecture
 
-git clone [https://github.com/Nikhilchapkanade/quant-mind.git](https://github.com/Nikhilchapkanade/quant-mind.git)
+```
+ Claude Desktop App
+        │
+        │ MCP (stdio)
+        ▼
+ ┌──────────────────┐
+ │   server.py       │  FastMCP Server
+ │   (2 tools)       │
+ └──┬──────────┬─────┘
+    │          │
+    ▼          ▼
+ brain_dl    brain_rag
+ (LSTM)      (RAG)
+    │          │
+    ▼          ▼
+ Yahoo       ChromaDB
+ Finance     Vector Store
+```
 
+### The Quantitative Brain (`brain_dl.py`)
+- Downloads **2 years** of historical price data from Yahoo Finance
+- Trains a **TensorFlow LSTM** model in real-time on your machine
+- Predicts next-day closing price and trend direction
 
-2. Set up the environment (Windows)
+### The Qualitative Brain (`brain_rag.py`)
+- Ingests financial analyst reports into **ChromaDB** with sentence embeddings
+- Retrieves relevant context for any ticker using vector similarity search
+- Returns sentiment analysis with supporting evidence
 
-   python -m venv venv
-   venv\Scripts\activate
+---
 
-### 5. Connecting to Claude
+## 🚀 Quick Start
 
-To let Claude talk to this code, you need to add it to the config file.
+```bash
+# 1. Clone
+git clone https://github.com/Nikhilchapkanade/quant-mind.git
+cd quant-mind
 
-Open your Claude config file. On Windows, it is located at: `%APPDATA%\Claude\claude_desktop_config.json`
+# 2. Setup environment
+python -m venv venv
+venv\Scripts\activate        # Windows
+# source venv/bin/activate   # macOS/Linux
 
-Add this entry to the file:
+# 3. Install
+pip install -r requirements.txt
+```
+
+### Connect to Claude Desktop
+
+Add to your Claude config (`%APPDATA%\Claude\claude_desktop_config.json`):
 
 ```json
 {
   "mcpServers": {
     "quant-mind": {
-      "command": "C:\\Users\\nikhi\\quant-mind\\venv\\Scripts\\python.exe",
-      "args": [
-        "C:\\Users\\nikhi\\quant-mind\\server.py"
-      ]
+      "command": "python",
+      "args": ["path/to/quant-mind/server.py"]
     }
   }
+}
+```
 
-6. Usage (Making Predictions)
-Once the server is configured, simply open the Claude Desktop App. You don't need to run any extra commands; Claude starts the server automatically.
+---
 
-Example Prompt:
+## 💬 Usage
 
-"Consult analyst notes for Tesla (TSLA) and predict its stock trend."
+Open Claude Desktop and ask:
 
-What happens next:
+> *"Predict the stock trend for Tesla (TSLA) and consult analyst notes."*
 
-The agent downloads the last 2 years of Tesla data.
+**What happens:**
+1. Downloads last 2 years of TSLA data from Yahoo Finance
+2. Trains an LSTM neural network on your GPU/CPU
+3. Searches analyst reports for context
+4. Returns: `📊 PREDICTION FOR TSLA: DOWNWARD TREND 📉`
 
-It trains a neural network on your graphics card (or CPU).
+---
 
-It reads the internal notes.
+## 📁 Project Structure
 
-It gives you a final report: "Prediction: DOWNWARD TREND 📉"
+```
+quant-mind/
+├── server.py        # MCP server — exposes 2 tools to Claude
+├── brain_dl.py      # LSTM price predictor (TensorFlow)
+├── brain_rag.py     # RAG analyst sentiment (ChromaDB)
+└── requirements.txt
+```
+
+---
+
+## 🛠️ Tech Stack
+
+| Component | Technology |
+|-----------|-----------|
+| AI Protocol | Model Context Protocol (MCP) |
+| Deep Learning | TensorFlow / Keras (LSTM) |
+| Vector Database | ChromaDB |
+| Embeddings | Sentence Transformers |
+| Market Data | Yahoo Finance API |
+| Client | Claude Desktop |
